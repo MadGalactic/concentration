@@ -11,6 +11,11 @@ h1 {
   color: #E6EBE0;
 }
 
+.button {
+  background-color: #32936F;
+  border: none;
+}
+
 
 .board-container {
     height: 370px;

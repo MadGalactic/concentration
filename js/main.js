@@ -1,18 +1,15 @@
 class BoardSquare {
-  constructor(element, color) {
+  constructor(element, image) {
     this.element = element;
     this.element.addEventListener("click", this, false);
     this.isFaceUp = false;
     this.isMatched = false;
-    this.setColor(color);
+    this.setImage(image);
   }
 
-  // TODO #2: add update this to be setImage
-  setColor(color) {
-    const faceUpElement = this.element.getElementsByClassName('faceup')[0];
-    faceUpElement.classList.remove(this.color);
-    this.color = color;
-    faceUpElement.classList.add(color);
+  setImage(imagePath) {
+    const faceUpElement = this.element.querySelector('.faceup img');
+    faceUpElement.src = imagePath;
   }
 
 
@@ -53,7 +50,7 @@ let squaresHTML = '';
     '<div class="col-3 board-square">\n' +
     '<div class="face-container">\n' +
     '<div class="facedown"></div>\n' +
-    '<div class="faceup"></div>\n' +
+    '<div class="faceup"><img src="images/card-cover.png" alt="Card"></div>\n' + // Set a default image for faceup
     '</div>\n' +
     '</div>\n';
   }
@@ -63,23 +60,41 @@ const boardElement = document.getElementById('gameboard');
 boardElement.innerHTML =  squaresHTML;
 }
 
-// TODO #3: Update to imagePairs
-const colorPairs = [];
+const imagePairs = [
+  "images/CardCoices/untitled-1.png", 
+  "images/CardCoices/untitled-2.png", 
+  "images/CardCoices/untitled-3.png", 
+  "images/CardCoices/untitled-4.png", 
+  "images/CardCoices/untitled-5.png", 
+  "images/CardCoices/untitled-6.png", 
+  "images/CardCoices/untitled-7.png",
+  "images/CardCoices/untitled-8.png",  
+];
 
-// TODO #4: Update to generateImagePairs
-function generateColorPairs() {
-  if (colorPairs.length > 0) {
-    return colorPairs;
+function generateImagePaths() {
+  if (imagePairs.length > 0) {
+    return imagePairs;
   } else {
-    // generates matching pair for each color
-    for (let i = 0; i < 8; i++) {
-      colorPairs.push('color-' + i);
-      colorPairs.push('color-' + i);
+    for (let i =0; i < 8; i++) {
+      imagePairs.push('images/untitled-' + i);
+      imagePairs.push('images/untitled-' + i);
     }
-
-    return colorPairs;
+    return imagePairs;
   }
 }
+// function generateColorPairs() {
+//   if (colorPairs.length > 0) {
+//     return colorPairs;
+//   } else {
+//     // generates matching pair for each color
+//     for (let i = 0; i < 8; i++) {
+//       colorPairs.push('color-' + i);
+//       colorPairs.push('color-' + i);
+//     }
+
+//     return colorPairs;
+//   }
+// }
 
 function shuffle(array) {
   let currentIndex = array.length;
@@ -102,11 +117,14 @@ function shuffle(array) {
 }
 
 
-// TODO #5: Update to shuffleImages
-function shuffleColors() {
-  const colorPairs = generateColorPairs()
-  return shuffle(colorPairs);
+function shuffleImages() {
+  const imagePairs = generateImagePaths()
+  return shuffle(imagePairs);
 }
+// function shuffleColors() {
+//   const colorPairs = generateColorPairs()
+//   return shuffle(colorPairs);
+// }
 
 
 const boardSquares = [];
@@ -114,13 +132,14 @@ const boardSquares = [];
 function setupGame() {
   generateHTMLForBoardSquares();
 
-  const randomColorPairs = shuffleColors();
+  // const randomColorPairs = shuffleColors();
+  const randomImagePairs = shuffleImages();
   const squareElements = document.getElementsByClassName("board-square");
 
   for (let i = 0; i < squareElements.length; i++) {
     const element = squareElements[i];
-    const color = randomColorPairs[i];
-    const square = new BoardSquare(element, color)
+    const color = randomImagePairs[i];
+    const square = new BoardSquare(element, imagePath)
 
     boardSquares.push(square);
   }
@@ -150,7 +169,7 @@ function squareFlipped(square) {
   }
 
   // If the square is the second square to be flipped, check if it's faceup color matches the first faceup square's color.
-  if (firstFaceupSquare.color === square.color) {
+  if (firstFaceupSquare.imagePath === square.imagePath) {
     // If both faceup colors for each square is the same, a match is made. Set both BoardSquare objects to matched 
     firstFaceupSquare.matchFound();
     square.matchFound();
@@ -201,15 +220,15 @@ function resetGame() {
   setTimeout(() => {
 
     // Shuffle and randomize a new order for the color pairs.
-    const randomColorPairs = shuffleColors();
+    const randomImagePairs = shuffleImages();
 
     // Set each BoardSquare object in our boardSquares array with a new color based on our new shuffled colors.
     // TODO #6: Change colors to images
     for (let i=0; i < boardSquares.length; i++) {
-      const newColor = randomColorPairs[i];
+      const newColor = randomImagePairs[i];
       const square = boardSquares[i];
 
-      square.setColor(newColor);
+      square.setImage(newImage);
     }
 
   }, 500);
