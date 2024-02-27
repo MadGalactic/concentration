@@ -7,13 +7,13 @@ class BoardSquare {
     this.setColor(color);
   }
 
+  // TODO #2: add update this to be setImage
   setColor(color) {
     const faceUpElement = this.element.getElementsByClassName('faceup')[0];
     faceUpElement.classList.remove(this.color);
     this.color = color;
     faceUpElement.classList.add(color);
   }
-
 
 
   reset() {
@@ -63,9 +63,10 @@ const boardElement = document.getElementById('gameboard');
 boardElement.innerHTML =  squaresHTML;
 }
 
-
+// TODO #3: Update to imagePairs
 const colorPairs = [];
 
+// TODO #4: Update to generateImagePairs
 function generateColorPairs() {
   if (colorPairs.length > 0) {
     return colorPairs;
@@ -101,6 +102,7 @@ function shuffle(array) {
 }
 
 
+// TODO #5: Update to shuffleImages
 function shuffleColors() {
   const colorPairs = generateColorPairs()
   return shuffle(colorPairs);
@@ -125,7 +127,6 @@ function setupGame() {
 }
 
 setupGame(); // DO NOT ERASE THIS OR GAME WILL NOT RUN
-
 
 // Variable that holds a reference to the first faceup square. This helps to keep track of whether the square is the first or second square flipped. 
 let firstFaceupSquare = null;
@@ -203,6 +204,7 @@ function resetGame() {
     const randomColorPairs = shuffleColors();
 
     // Set each BoardSquare object in our boardSquares array with a new color based on our new shuffled colors.
+    // TODO #6: Change colors to images
     for (let i=0; i < boardSquares.length; i++) {
       const newColor = randomColorPairs[i];
       const square = boardSquares[i];

@@ -1,3 +1,17 @@
+header {
+  padding-top: 35px;
+  background-color: #E83F6F;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-family: "Paytone One", sabs-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #E6EBE0;
+}
+
+
 .board-container {
     height: 370px;
     width: 370px;
@@ -43,6 +57,8 @@
     width: 370px;
   }
   
+  /* TODO #1: Switch colors to images*/
+
   /* colors */
 
 .color-0 {
