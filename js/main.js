@@ -66,6 +66,12 @@ function flipCard(){
   checkForMatch();
 
 }
+// made my own modifications to the logic of the checkForMatch function to keep track of the score
+// define a variable to keep track of the number of matches made 
+let matchesMade = 0;
+
+// define a variable to store the total number of possible matches
+const totalMatches = 9;
 
 function checkForMatch(){
   let isMatch = firstCard.dataset.name === secondCard.dataset.name;
@@ -73,17 +79,28 @@ function checkForMatch(){
   if(isMatch) {
     disableCards();
     incrementScore(); // Call the function to increment score if there's a match
+    if (matchesMade === totalMatches) {
+      displayWinner();
+    }
   } else {
     unflipCards();
   }
 
 }
 
+// my modification to the code base so that the score only increments when two cards match
 function incrementScore() {
   score++; // Increment the score
+  matchesMade++; // Increment matchesMade when a match is found
   document.querySelector(".score").textContent = score; // Update the score on the UI
 }
 
+// my modification so that a pop-up winner message is displayed
+function displayWinner() {
+  // Display "winner!" text
+  const winnerText = document.querySelector(".winner-text");
+  winnerText.style.display = "block";
+}
 
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
@@ -115,9 +132,6 @@ function restart() {
   generateCards();
 }
 
-function displayWinner (){
-
-}
 
 
 

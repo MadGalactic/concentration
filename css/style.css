@@ -91,6 +91,15 @@ p {
   transform: rotateY(180deg);
 }
 
+.winner-text {
+  display: none;
+  font-size: 5em;
+  color: purple;
+}
+
+
+
+
 
 /* .button {
   background-color: #32936F;
