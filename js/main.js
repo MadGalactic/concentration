@@ -44,30 +44,44 @@ fetch("./data/cards.json")
   }
 
 function flipCard(){
+  // start by checking if the board is locked. if so, the function returns, preventing any cards from being flipped 
   if (lockBoard) 
     return;
+  // If the player clicks on the same card twice, the function also returns, avoiding any unwanted behavior
   if (this === firstCard) 
     return;
 
+  // The card that was clicked is then given the class "flipped", which causes it to flip over and reveal its image
   this.classList.add("flipped");
 
+  // If this is the first card being flipped, the "firstCard" variable is set to the card that was clicked. 
   if (!firstCard) {
     firstCard= this;
     return;
   }
-
   secondCard = this;
-  score++;
   document.querySelector(".score").textContent = score;
   lockBoard = true;
-
+  
   checkForMatch();
+
 }
 
 function checkForMatch(){
   let isMatch = firstCard.dataset.name === secondCard.dataset.name;
 
-  isMatch ? disableCards() : unflipCards();
+  if(isMatch) {
+    disableCards();
+    incrementScore(); // Call the function to increment score if there's a match
+  } else {
+    unflipCards();
+  }
+
+}
+
+function incrementScore() {
+  score++; // Increment the score
+  document.querySelector(".score").textContent = score; // Update the score on the UI
 }
 
 
@@ -99,6 +113,10 @@ function restart() {
   document.querySelector(".score").textContent = score;
   gridContainer.innerHTML = "";
   generateCards();
+}
+
+function displayWinner (){
+
 }
 
 
